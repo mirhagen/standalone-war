@@ -1,3 +1,6 @@
 .idea
 *.war
 *.iml
+build
+prodDb.*
+stacktrace.log
