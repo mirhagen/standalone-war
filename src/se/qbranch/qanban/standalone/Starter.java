@@ -8,10 +8,9 @@ import org.mortbay.jetty.webapp.WebAppContext;
 import java.net.URL;
 import java.security.ProtectionDomain;
 
-public class RunQanbanStandalone {
+public class Starter {
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Server started");
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
         connector.setMaxIdleTime(1000 * 60 * 60);
@@ -23,7 +22,7 @@ public class RunQanbanStandalone {
         context.setServer(server);
         context.setContextPath("/");
 
-        ProtectionDomain protectionDomain = RunQanbanStandalone.class.getProtectionDomain();
+        ProtectionDomain protectionDomain = Starter.class.getProtectionDomain();
         URL location = protectionDomain.getCodeSource().getLocation();
         context.setWar(location.toExternalForm());
 

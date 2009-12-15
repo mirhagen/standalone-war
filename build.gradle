@@ -42,7 +42,7 @@ task buildStandaloneWar(dependsOn: buildQanbanStarter) << {
     }
 
 	ant.manifest(file: new File(warDir, 'META-INF/MANIFEST.MF')) {
-		attribute(name: 'Main-Class', value: 'se.qbranch.qanban.standalone.RunQanbanStandalone')
+		attribute(name: 'Main-Class', value: 'se.qbranch.qanban.standalone.Starter')
 	}
 
 	ant.zip(destfile: 'qanban-standalone.war') {
