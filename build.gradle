@@ -1,0 +1,10 @@
+defaultTasks 'buildStandaloneWar'
+
+task buildStandaloneWar << {
+    copy {
+    	from 'out/production/qanban_standalone/'
+		from 'classes'
+		into 'explodedWar'
+    }
+
+}
