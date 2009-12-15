@@ -10,7 +10,8 @@ import java.security.ProtectionDomain;
 
 public class RunQanbanStandalone {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        System.out.println("Server started");
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
         connector.setMaxIdleTime(1000 * 60 * 60);

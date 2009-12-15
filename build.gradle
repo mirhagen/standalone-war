@@ -1,10 +1,51 @@
+usePlugin 'java'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'org.mortbay.jetty', name: 'jetty-embedded', version: '6.1.21'
+}
+
 defaultTasks 'buildStandaloneWar'
 
-task buildStandaloneWar << {
-    copy {
-    	from 'out/production/qanban_standalone/'
-		from 'classes'
-		into 'explodedWar'
+def depsDir = file('build/dependencies')
+def outDir = file('build/out')
+def warDir = file('build/explodedWar')
+
+task extractDependencies << {
+  	for(file in configurations.runtime) {
+		ant.unzip(src: file.absolutePath,
+			      dest: depsDir)
+	}
+	
+	ant.delete(dir: new File(depsDir, 'META-INF'))
+}
+
+task buildQanbanStarter(dependsOn: extractDependencies) << {
+
+	outDir.mkdirs()
+	
+	ant.javac(srcdir:'src', destdir: outDir,
+			  fork: 'true', classpath: depsDir)
+	
+}
+
+task buildStandaloneWar(dependsOn: buildQanbanStarter) << {
+	ant.unzip(src: 'qanban.war', dest: warDir)
+	
+	copy {
+    	from depsDir
+		from outDir
+		into warDir
     }
 
+	ant.manifest(file: new File(warDir, 'META-INF/MANIFEST.MF')) {
+		attribute(name: 'Main-Class', value: 'se.qbranch.qanban.standalone.RunQanbanStandalone')
+	}
+
+	ant.zip(destfile: 'qanban-standalone.war') {
+		fileset(dir: warDir)
+	}
 }
