@@ -4,3 +4,4 @@
 build
 prodDb.*
 stacktrace.log
+gradle.properties

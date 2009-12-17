@@ -1,4 +1,20 @@
-package se.qbranch.qanban.standalone;
+/*
+ * Copyright 2009 Qbranch AB
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package se.qbranch.standalone;
 
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
@@ -8,6 +24,20 @@ import org.mortbay.jetty.webapp.WebAppContext;
 import java.net.URL;
 import java.security.ProtectionDomain;
 
+/**
+ * Starter for embedded Jetty. This class is intended to be packaged into a
+ * war-file and set as the Main-Class in MANIFEST.MF. Running the war will
+ * start a Jetty instance on port 8080 with the containing war loaded.
+ * The base of this class comes from this blogpost:
+ * http://eclipsesource.com/blogs/2009/10/02/executable-wars-with-jetty/
+ *
+ * Example:
+ * java -jar webapp.war
+ *
+ * webapp.war is loaded on http://localhost:8080/
+ *
+ * @author Leonard Axelsson
+ */
 public class Starter {
 
     public static void main(String[] args) throws Exception {

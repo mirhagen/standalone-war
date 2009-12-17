@@ -1,3 +1,19 @@
+/*
+ * Copyright 2009 Qbranch AB
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 usePlugin 'java'
 
 repositories {
@@ -23,7 +39,7 @@ task extractDependencies << {
 	ant.delete(dir: new File(depsDir, 'META-INF'))
 }
 
-task buildQanbanStarter(dependsOn: extractDependencies) << {
+task buildStarter(dependsOn: extractDependencies) << {
 
 	outDir.mkdirs()
 	
@@ -32,8 +48,14 @@ task buildQanbanStarter(dependsOn: extractDependencies) << {
 	
 }
 
-task buildStandaloneWar(dependsOn: buildQanbanStarter) << {
-	ant.unzip(src: 'qanban.war', dest: warDir)
+task buildStandaloneWar(dependsOn: buildStarter) << {
+    if(project.hasProperty('inWar') && !project.hasProperty('outWar')) {
+      def warName = inWar[0..(inWar.indexOf('.war')-1)]
+
+      outWar = "build/$warName-standalone.war"
+    }
+
+	ant.unzip(src: inWar, dest: warDir)
 	
 	copy {
     	from depsDir
@@ -42,10 +64,10 @@ task buildStandaloneWar(dependsOn: buildQanbanStarter) << {
     }
 
 	ant.manifest(file: new File(warDir, 'META-INF/MANIFEST.MF')) {
-		attribute(name: 'Main-Class', value: 'se.qbranch.qanban.standalone.Starter')
+		attribute(name: 'Main-Class', value: 'se.qbranch.standalone.Starter')
 	}
 
-	ant.zip(destfile: 'qanban-standalone.war') {
+	ant.zip(destfile: "$outWar") {
 		fileset(dir: warDir)
 	}
 }
