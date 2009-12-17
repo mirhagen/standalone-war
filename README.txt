@@ -15,4 +15,4 @@ Creates: build/webapp-standalone.war
 The standalone can be run with java -jar webapp-standalone.war or put in your favourite servlet container as usual.
 
 Disclaimer
-The Jetty starter is in no way heavily tested, use at your own risk.
+The Jetty starter is in no way heavily tested, use at your own risk. Also, I can't do any magic with your war, if it doesn't work in Jetty or have an external dependency on MySQL that will stay the same. I created this build to be used with Qanban (a digital Kanban board) which is written in Grails and uses HSQLDB. More information about QANBAN here http://code.qbranch.se/ and here http://github.com/qbranchcode/Qanban
