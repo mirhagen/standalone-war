@@ -22,6 +22,8 @@ repositories {
 
 dependencies {
 	compile group: 'org.mortbay.jetty', name: 'jetty-embedded', version: '6.1.21'
+	compile group: 'org.mortbay.jetty', name: 'jetty-naming', version: '6.1.21'
+	compile group: 'org.mortbay.jetty', name: 'jetty-plus', version: '6.1.21'
 }
 
 defaultTasks 'buildStandaloneWar'
