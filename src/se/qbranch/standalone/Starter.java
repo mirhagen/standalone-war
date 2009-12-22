@@ -39,13 +39,15 @@ import java.security.ProtectionDomain;
  * @author Leonard Axelsson
  */
 public class Starter {
+	
+	private static final int DEFAULT_PORT = 8080;
 
     public static void main(String[] args) throws Exception {
         Server server = new Server();
         SocketConnector connector = new SocketConnector();
         connector.setMaxIdleTime(1000 * 60 * 60);
         connector.setSoLingerTime(-1);
-        connector.setPort(8080);
+        connector.setPort(Integer.getInteger("port", DEFAULT_PORT));
         server.setConnectors(new Connector[]{connector});
 
         WebAppContext context = new WebAppContext();
