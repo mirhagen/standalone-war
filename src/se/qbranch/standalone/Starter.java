@@ -28,11 +28,14 @@ import java.security.ProtectionDomain;
  * Starter for embedded Jetty. This class is intended to be packaged into a
  * war-file and set as the Main-Class in MANIFEST.MF. Running the war will
  * start a Jetty instance on port 8080 with the containing war loaded.
+ * If you specify a port environment variable that will be used for Jetty
+ * instead of 8080 (see example).
+ *
  * The base of this class comes from this blogpost:
  * http://eclipsesource.com/blogs/2009/10/02/executable-wars-with-jetty/
  *
  * Example:
- * java -jar webapp.war
+ * java -jar -Dport=80 webapp.war
  *
  * webapp.war is loaded on http://localhost:8080/
  *
